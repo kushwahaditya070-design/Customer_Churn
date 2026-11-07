@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CHURN / SIGNAL — Customer Intelligence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static',filename='css/style.css') }}">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script></head>
+<body>
+<header class="nav"><a class="brand" href="#top"><span>LAB</span><i> / CHURN</i></a><nav><a href="#about">OVERVIEW</a><a href="#insights">INSIGHTS</a><a href="#predict">PREDICT</a><a href="#model">MODEL</a></nav><span class="nav-index">ML / 01</span></header>
+<main id="top">
+<section class="hero">
+<div class="eyebrow"><span class="dot"></span> CUSTOMER INTELLIGENCE / MACHINE LEARNING</div>
+<div class="hero-label">RETENTION IS A<br>GROWTH STRATEGY.</div>
+<h1>CHURN<span class="lime-block">↗</span><br><span class="outline">SIGNAL</span></h1>
+<div class="hero-bottom"><p>Understand the signals behind customer attrition.<br>Explore the dataset. Predict the next move.</p><a class="pill" href="#insights">Explore dashboard <b>↘</b></a></div>
+<div class="hero-meta"><span>TELECOM CUSTOMER DATASET</span><span>07,032 CLEAN RECORDS · 08 FEATURES</span></div>
+</section>
+<section class="intro lime" id="about"><div class="symbol">↗</div><div><h2>DATA-LED RETENTION.<br>BUILT TO MAKE AN IMPACT.</h2><p>Churn Signal translates customer attributes into actionable retention intelligence. Powered by a saved Logistic Regression model and the original Telco dataset—not simulated data.</p></div><div class="side-tag">PROJECT</div></section>
+<section class="section-head" id="insights"><span class="kicker">01 / DATASET EXPLORER</span><h2>THE CUSTOMER<br><em>LANDSCAPE.</em></h2><p>One dataset. Clear signals. Explore the distribution and churn patterns below.</p></section>
+<section class="metrics"><article><small>ALL CUSTOMERS</small><strong id="total">—</strong><span>clean records</span></article><article><small>CHURNED</small><strong id="churned">—</strong><span>customers lost</span></article><article><small>RETAINED</small><strong id="retained">—</strong><span>customers active</span></article><article class="metric-lime"><small>CHURN RATE</small><strong id="rate">—</strong><span>overall attrition</span></article></section>
+<section class="charts">
+<div class="chart-card"><div class="chart-title"><span>01</span><h3>CHURN DISTRIBUTION</h3><small>YES / NO</small></div><div class="chart-wrap"><canvas id="churnChart"></canvas></div></div>
+<div class="chart-card"><div class="chart-title"><span>02</span><h3>GENDER MIX</h3><small>RECORD COUNT</small></div><div class="chart-wrap"><canvas id="genderChart"></canvas></div></div>
+<div class="chart-card"><div class="chart-title"><span>03</span><h3>CONTRACT & CHURN</h3><small>CHURN RATE %</small></div><div class="chart-wrap tall"><canvas id="contractChart"></canvas></div></div>
+<div class="chart-card"><div class="chart-title"><span>04</span><h3>MONTHLY CHARGES</h3><small>CHURN RATE BY BAND</small></div><div class="chart-wrap tall"><canvas id="monthlyChart"></canvas></div></div>
+<div class="chart-card wide"><div class="chart-title"><span>05</span><h3>TENURE & RETENTION</h3><small>CHURN RATE BY MONTHS</small></div><div class="chart-wrap"><canvas id="tenureChart"></canvas></div></div>
+</section>
+<section class="predict-section" id="predict"><div class="section-head inverse"><span class="kicker">02 / LIVE MODEL</span><h2>READ THE<br><em>RISK.</em></h2><p>Enter the eight features used in training. Your request is scaled with the model's saved StandardScaler and scored by the original classifier.</p></div>
+<div class="predict-grid"><form id="predictForm" class="predict-form">
+<div class="form-top"><span>NEW CUSTOMER / INPUT</span><span>8 VARIABLES</span></div>
+<div class="fields">
+<label>Tenure <small>MONTHS (0–72)</small><input type="number" name="tenure" min="0" max="72" value="12" required></label>
+<label>Monthly charges <small>USD</small><input type="number" name="MonthlyCharges" min="0" max="200" step=".01" value="75" required></label>
+<label>Total charges <small>USD</small><input type="number" name="TotalCharges" min="0" max="10000" step=".01" value="900" required></label>
+<label>Senior citizen <small>BINARY</small><select name="SeniorCitizen"><option value="0">No</option><option value="1">Yes</option></select></label>
+<label>Gender <small>TRAINING ENCODING</small><select name="gender_Male"><option value="0">Female</option><option value="1">Male</option></select></label>
+<label>Partner <small>BINARY</small><select name="Partner_Yes"><option value="0">No</option><option value="1">Yes</option></select></label>
+<label>Dependents <small>BINARY</small><select name="Dependents_Yes"><option value="0">No</option><option value="1">Yes</option></select></label>
+<label>Paperless billing <small>BINARY</small><select name="PaperlessBilling_Yes"><option value="1">Yes</option><option value="0">No</option></select></label>
+</div><div class="form-actions"><button type="reset" class="reset">Reset fields ↺</button><button type="submit" class="submit">Predict churn <span>↗</span></button></div><p class="form-note">Prediction is an estimate from the trained model, not a guarantee.</p></form>
+<div class="result-panel" id="resultPanel"><div class="result-stamp">MODEL OUTPUT <span>● READY</span></div><div class="result-placeholder"><div class="orbit">↗</div><h3>AWAITING<br>INPUT SIGNAL.</h3><p>Complete the customer profile<br>and run a prediction.</p></div><div id="result" hidden><div class="result-status" id="resultStatus"></div><h3 id="resultLabel">—</h3><p class="result-copy">Estimated churn probability</p><div class="prob"><strong id="probability">—</strong><span>%</span></div><div class="prob-track"><span id="probBar"></span></div><div class="risk-row"><span>RISK BAND</span><b id="risk">—</b></div><div class="result-foot">LOGISTIC REGRESSION / LIVE INFERENCE</div></div></div></div>
+</section>
+<section class="model-section" id="model"><div class="section-head"><span class="kicker">03 / MODEL CARD</span><h2>THE MODEL.<br><em>IN CONTEXT.</em></h2><p>Evaluation results from the notebook's stratified 80/20 test split (random state 42).</p></div>
+<div class="model-layout"><div class="model-feature"><span class="lime-chip">CHAMPION MODEL</span><h3>LOGISTIC<br>REGRESSION</h3><div class="big-accuracy">78.18<span>%</span></div><p>Test accuracy · 1,407 samples</p><div class="feature-line">FEATURES USED <b>08</b></div></div><div class="model-stats"><div><span>PRECISION / CHURN</span><b>61.75%</b></div><div><span>RECALL / CHURN</span><b>47.06%</b></div><div><span>F1 SCORE / CHURN</span><b>53.41%</b></div><div><span>ROC AUC</span><b>81.97%</b></div><div class="matrix"><h4>CONFUSION MATRIX <small>ACTUAL × PREDICTED</small></h4><div class="matrix-grid"><span></span><span>STAY</span><span>CHURN</span><span>STAY</span><b>924</b><b>109</b><span>CHURN</span><b>198</b><b>176</b></div><p>TN 924 · FP 109 · FN 198 · TP 176</p></div></div></div>
+</section>
+<footer><div class="footer-big">KEEP<br><span>GOOD</span><br>CUSTOMERS.</div><div class="footer-bottom"><span>CHURN SIGNAL / CUSTOMER ANALYTICS</span><span>BUILT WITH FLASK · SCIKIT-LEARN · CHART.JS</span><span>© 2026 / PROJECT 01</span></div></footer>
+</main><script src="{{ url_for('static',filename='js/main.js') }}"></script></body></html>
